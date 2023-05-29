@@ -4,7 +4,7 @@ import time
 import requests
 import logging
 
-from . import ssx_test
+from custom_components.hass_cozylife_local_pull.ssx_test import get_local_get_pid_list
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -20,9 +20,11 @@ def get_sn() -> str:
 # cache get_pid_list result for many calls
 _CACHE_PID = []
 
-class res2:
+
+class Res2:
     content = 1
-    def __init__(self,content):
+
+    def __init__(self, content):
         self.content = content
 
 
@@ -36,7 +38,7 @@ def get_pid_list(lang='en') -> list:
     if len(_CACHE_PID) != 0:
         return _CACHE_PID
 
-    res = res2(1)
+    res = Res2(1)
     try:
         domain = 'api-us.doiting.com'
         protocol = 'http'
@@ -49,7 +51,7 @@ def get_pid_list(lang='en') -> list:
             _LOGGER.info('get_pid_list.result is none')
             return []
     except:
-        res.content = ssx_test.get_local_get_pid_list()
+        res.content = get_local_get_pid_list()
 
     try:
         pid_list = json.loads(res.content)
@@ -71,3 +73,7 @@ def get_pid_list(lang='en') -> list:
 
     _CACHE_PID = pid_list['info']['list']
     return _CACHE_PID
+
+
+if __name__ == '__main__':
+    get_pid_list('en')
