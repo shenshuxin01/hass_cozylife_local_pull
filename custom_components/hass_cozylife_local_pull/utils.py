@@ -40,6 +40,8 @@ def get_pid_list(lang='en') -> list:
 
     res = Res2(1)
     try:
+        _LOGGER.info('开始获取远程设备信息')
+        raise ConnectionError
         domain = 'api-us.doiting.com'
         protocol = 'http'
         url_prefix = protocol + '://' + domain
@@ -50,8 +52,13 @@ def get_pid_list(lang='en') -> list:
         if 200 != res.status_code:
             _LOGGER.info('get_pid_list.result is none')
             return []
+        _LOGGER.info('开始获取远程设备信息完成：res:')
+        _LOGGER.info(res)
     except:
+        _LOGGER.info('开始获取远程设备信息异常')
         res.content = get_local_get_pid_list()
+        _LOGGER.info('开始获取远程设备信息异常信息res')
+        _LOGGER.info(res)
 
     try:
         pid_list = json.loads(res.content)
