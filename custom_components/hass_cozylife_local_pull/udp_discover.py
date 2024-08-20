@@ -32,7 +32,8 @@ def get_ip() -> list:
     i = 0
     while i < 3:
         # server.sendto(bytes(message, encoding='utf-8'), ('<broadcast>', 6095))
-        # server.sendto(bytes(message, encoding='utf-8'), ('255.255.255.255', 6095)) 使用mac的docker无法使用networkHost模式,扫描不到ip,所以使用下面手动配置ip
+        server.sendto(bytes(message, encoding='utf-8'), ('255.255.255.255', 6095))
+        # 使用mac的docker无法使用networkHost模式,扫描不到ip,所以使用下面手动配置ip
         server.sendto(bytes(message, encoding='utf-8'), ('192.168.0.10', 6095))
         time.sleep(0.03)
         server.sendto(bytes(message, encoding='utf-8'), ('192.168.0.12', 6095))
