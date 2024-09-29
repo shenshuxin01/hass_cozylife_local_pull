@@ -68,12 +68,12 @@ async def async_setup_platform(
     _LOGGER.info(f'discovery_info={discovery_info}')
     if discovery_info is None:
         return
-    
+
     lights = []
     for item in hass.data[DOMAIN]['tcp_client']:
         if LIGHT_TYPE_CODE == item.device_type_code:
             lights.append(CozyLifeLight(item))
-    
+
     add_entities(lights)
 
 
